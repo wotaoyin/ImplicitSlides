@@ -1,0 +1,282 @@
+/*-- scss:defaults --*/
+
+// Fonts
+$font-family-sans-serif: "Source Sans Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$font-family-monospace: "Fira Code", "Source Code Pro", Consolas, Monaco, monospace;
+$presentation-font-size-root: 42px;
+$presentation-line-height: 1.4;
+
+// Color palette - Professional neutral with subtle blue accent
+$body-bg: #fafafa;
+$body-color: #2d3436;
+$link-color: #2563eb;
+$link-color-hover: #1d4ed8;
+$selection-bg: #3b82f6;
+$selection-color: #ffffff;
+
+// Headings
+$presentation-heading-font: "Source Sans Pro", "Segoe UI", Roboto, sans-serif;
+$presentation-heading-color: #1a1a2e;
+$presentation-heading-text-transform: none;
+$presentation-heading-font-weight: 600;
+$presentation-h1-font-size: 2.2em;
+$presentation-h2-font-size: 1.6em;
+$presentation-h3-font-size: 1.3em;
+
+// Code blocks
+$code-block-bg: white;
+$code-block-border-color: #334155;
+
+/*-- scss:rules --*/
+
+// Title slide styling
+#title-slide {
+  text-align: left;
+  padding-left: 60px;
+
+  h1.title {
+    color: #5d6674;
+    font-size: 2.0em;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+    text-shadow: none;
+  }
+
+  p.author {
+    color: #94a3b8;
+    font-size: 1.1em;
+    font-weight: 400;
+    margin-top: 1em;
+  }
+
+  p.date {
+    color: #94a3b8;
+    font-size: 0.9em;
+  }
+}
+
+// Regular slides
+.reveal .slides section {
+  text-align: left;
+}
+
+// Headings with subtle accent line
+.reveal h2 {
+  border-bottom: 3px solid #3b82f6;
+  padding-bottom: 0.3em;
+  margin-bottom: 0.8em;
+}
+
+.reveal h3 {
+  color: #475569;
+}
+
+// Section title slides (level 1 headers)
+.reveal section[data-background-color] h1,
+.reveal .slide-background-content h1 {
+  color: #ffffff;
+}
+
+// Lists
+.reveal ul, .reveal ol {
+  margin-left: 1em;
+}
+
+.reveal li {
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+.reveal ul li::marker {
+  color: #3b82f6;
+}
+
+// Tables
+.reveal table {
+  margin: 1em auto;
+  border-collapse: collapse;
+  font-size: 0.85em;
+}
+
+.reveal table th {
+  background-color: #1e293b;
+  color: #ffffff;
+  padding: 0.8em 1em;
+  font-weight: 600;
+  border: none;
+}
+
+.reveal table td {
+  padding: 0.6em 1em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.reveal table tr:nth-child(even) {
+  background-color: #f1f5f9;
+}
+
+.reveal table tr:hover {
+  background-color: #e2e8f0;
+}
+
+// Callouts
+.reveal .callout {
+  margin: 1em 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.reveal .callout-note {
+  border-left: 4px solid #3b82f6;
+  background-color: #eff6ff;
+}
+
+.reveal .callout-tip {
+  border-left: 4px solid #10b981;
+  background-color: #ecfdf5;
+}
+
+.reveal .callout-warning {
+  border-left: 4px solid #f59e0b;
+  background-color: #fffbeb;
+}
+
+.reveal .callout-important {
+  border-left: 4px solid #ef4444;
+  background-color: #fef2f2;
+}
+
+// Code styling
+.reveal pre {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 0.75em;
+}
+
+.reveal code {
+  font-family: $font-family-monospace;
+  background-color: #e2e8f0;
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.reveal pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+// Math equations
+.reveal .math {
+  color: #1e293b;
+}
+
+// Columns
+.reveal .columns {
+  margin-top: 1em;
+}
+
+// Footer and slide number
+.reveal .footer {
+  font-size: 0.5em;
+  color: #64748b;
+}
+
+.reveal .slide-number {
+  font-size: 0.6em;
+  color: #64748b;
+  background-color: transparent;
+}
+
+// Progress bar
+.reveal .progress {
+  height: 4px;
+  color: #3b82f6;
+}
+
+// Aside/footnotes
+.reveal aside {
+  font-size: 0.7em;
+  color: #64748b;
+  font-style: italic;
+}
+
+// Block quotes
+.reveal blockquote {
+  border-left: 4px solid #cbd5e1;
+  padding-left: 1em;
+  font-style: italic;
+  color: #475569;
+  background-color: #f8fafc;
+  padding: 0.8em 1em;
+  border-radius: 0 6px 6px 0;
+}
+
+// Images
+.reveal img {
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+// Stronger emphasis
+.reveal strong {
+  color: #1e293b;
+  font-weight: 700;
+}
+
+// Section slides (# headers become section dividers)
+.reveal section.center h1 {
+  font-size: 2.5em;
+  color: #1a1a2e;
+}
+
+// Links
+.reveal a {
+  text-decoration: none;
+  border-bottom: 1px dotted $link-color;
+}
+
+.reveal a:hover {
+  border-bottom-style: solid;
+}
+
+// Responsive adjustments for figures
+.reveal figure {
+  margin: 1em 0;
+}
+
+.reveal figcaption {
+  font-size: 0.7em;
+  color: #64748b;
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+// Speaker notes styling (visible during presentation)
+.reveal .speaker-notes {
+  font-family: $font-family-sans-serif;
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+// Transition section styling for # headings
+.reveal section[data-transition] {
+  background-color: #1a1a2e;
+
+  h1 {
+    color: #ffffff;
+    text-align: center;
+  }
+}
+
+// References section
+#refs {
+  font-size: 0.7em;
+
+  p {
+    margin-bottom: 0.5em;
+    text-indent: -2em;
+    padding-left: 2em;
+  }
+}

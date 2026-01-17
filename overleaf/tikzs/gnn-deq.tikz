@@ -1,0 +1,202 @@
+\begin{tikzpicture}
+
+\definecolor{modernblue}{RGB}{52, 152, 255}   % Vibrant blue
+\definecolor{modernred}{RGB}{255, 76, 60}     % Bright red
+\definecolor{moderngreen}{RGB}{50, 200, 50}  % Fresh green
+\definecolor{moderngray}{RGB}{150,150,150} % Vivid yellow
+\definecolor{modernyellow}{RGB}{255,210,0}
+
+% \newcommand{\xone}{{\color{modernblue}x_1}}
+% \newcommand{\xtwo}{{\color{modernred}x_2}}
+% \newcommand{\xthr}{{\color{moderngreen}x_3}}
+\newcommand{\xone}{{y_1}}
+\newcommand{\xtwo}{{y_2}}
+\newcommand{\xthr}{{y_3}}
+
+
+%% ------ Part I: A linear program -------------
+
+\node[align=center, rounded corners] (obj) at (-2.5,1) { %, fill=moderngray
+\small
+    \setlength{\tabcolsep}{1pt} % Reduce the space between columns
+    \begin{tabular}{rrrrrrl}
+    $\min$ & $c_1 ~ \xone$ & $+$ & $c_2 ~ \xtwo$ & $+$ & $c_3 ~ \xthr$ & \\ [6pt]
+    s.t. & $l_1 \leq \xone $ & $\leq u_1,$ & $l_2 \leq \xtwo$ & $ \leq u_2,$ & $l_3 \leq \xthr$ & $\leq u_3$ \\ [6pt]
+    & $A_{11} ~ \xone$ & $+$ & $A_{12} ~ \xtwo$ & & & $= b_1$ \\ [6pt]
+    & & & $A_{22} ~ \xtwo$ & $+$ & $A_{23} ~ \xthr$ & $\leq b_2$ \\ [6pt]
+    \end{tabular} 
+    \\
+};
+
+    \begin{scope}[on background layer]
+
+    \fill[fill=moderngreen] (-4.8, 0.05) rectangle (0.6, 0.45);
+    \fill[fill=moderngreen] (-4.8, 0.65) rectangle (0.6,1.05);
+
+    \fill[fill=modernblue] (-4.29, -0.2) rectangle (-3.83,2.5);
+    \fill[fill=modernblue] (-2.43, -0.2) rectangle (-1.97,2.5);
+    \fill[fill=modernblue] (-0.55, -0.2) rectangle (-0.09,2.5);
+    \end{scope}
+
+
+
+
+%% ------ Part II: (Static) graph representation -------------
+
+
+\tikzset{
+  gridnode/.style={
+    matrix of nodes,
+    nodes in empty cells,
+    row sep=-\pgflinewidth,
+    column sep=-\pgflinewidth,
+    inner sep=0pt,
+    outer sep=0pt,
+    nodes={
+      draw,
+      align=center,
+      font=\normalsize,     % normal font size
+      inner sep=0.6pt,      % tighten padding
+      text height=2.2ex,    % fixed row height (top)
+      text depth=0.6ex,     % fixed row height (descenders)
+      anchor=center
+    }
+  },
+  gridG/.style={gridnode, nodes={fill=moderngreen}}, % constraints
+  gridB/.style={gridnode, nodes={fill=modernblue}}   % variables
+}
+
+
+% --- Constraint nodes (left) ---
+\matrix (c1) at (1.5,2) [gridG, label={[yshift=-0.7ex]above:node $W_1$}] {%
+  $b_1$ & $=$ \\};
+
+\matrix (c2) at (1.5,0.2) [gridG, label={[yshift=-0.7ex]above:node $W_2$}] {%
+  $b_2$ & $\leq$ \\};
+
+% --- Variable nodes (right) ---
+\matrix (v1) at (3.5,2) [gridB, label={[yshift=-0.7ex]above:node $V_1$}] {%
+  $c_1$ & $l_1$ & $u_1$ \\};
+
+\matrix (v2) at (3.5,1.1) [gridB, label={[yshift=-0.7ex]above:node $V_2$}] {%
+  $c_2$ & $l_2$ & $u_2$ \\};
+
+\matrix (v3) at (3.5,0.2) [gridB, label={[yshift=-0.7ex]above:node $V_3$}] {%
+  $c_3$ & $l_3$ & $u_3$ \\};
+
+% --- Edges ---
+\draw (c1.east) -- (v1.west) node[midway, above] {$A_{11}$};
+\draw (c1.east) -- (v2.west) node[midway, above, yshift=-2pt] {$A_{12}$};
+\draw (c2.east) -- (v2.west) node[midway, above] {$A_{22}$};
+\draw (c2.east) -- (v3.west) node[midway, below, yshift=2pt] {$A_{23}$};
+
+
+
+
+
+
+%% ------ Part III: Implicit GNN iteratively applied on the graph -------------
+
+% --- Constraint nodes (left) ---
+\matrix (c11) at (5,2.2) [gridG] {%
+  $\quad$ \\};
+
+\matrix (c12) at (5,0.8) [gridG] {%
+  $\quad$ \\};
+
+% --- Variable nodes (right) ---
+\matrix (v11) at (6.3,2.2) [gridB] {%
+  $\quad$ & |[fill=modernyellow]| $z_1^{(0)}$ \\};
+
+\matrix (v12) at (6.3,1.5) [gridB] {%
+  $\quad$ & |[fill=modernyellow]| $z_2^{(0)}$ \\};
+
+\matrix (v13) at (6.3,0.8) [gridB] {%
+  $\quad$ & |[fill=modernyellow]| $z_3^{(0)}$ \\}; % keep your label as-is
+
+  % Group boxes to span with braces
+\node[inner sep=1.5pt, fit=(c11) (c12) (v11-1-1) (v12-1-1) (v13-1-1)] (staticBox) {};
+\node[inner sep=1.5pt, fit=(v11-1-2) (v12-1-2) (v13-1-2)] (zBox) {};
+
+        % --- Edges ---
+\draw (c11.east) -- (v11.west);
+\draw (c11.east) -- (v12.west);
+\draw (c12.east) -- (v12.west);
+\draw (c12.east) -- (v13.west);
+
+% Group boxes to span with braces
+\node[inner sep=1.5pt, fit=(c11) (c12) (v11-1-1) (v12-1-1) (v13-1-1)] (staticBox) {};
+\node[inner sep=1.5pt, fit=(v11-1-2) (v12-1-2) (v13-1-2)] (zBox) {};
+
+% Underbrace for yellow column:  \vz_0
+\draw[decorate, decoration={brace,mirror,amplitude=5pt}]
+  ($(zBox.south west)$) -- ($(zBox.south east)$)
+  node[midway, yshift=-8pt] {$\vz_0$};
+
+% Underbrace for green + blue (non-yellow):  static parts
+\draw[decorate, decoration={brace,mirror,amplitude=5pt}]
+  ($(staticBox.south west)+(0,-6pt)$) -- ($(staticBox.south east)+(0,-6pt)$)
+  node[midway, yshift=-10pt] {static parts};
+
+
+\node[inner sep=0pt, anchor=center] at (7.1,1.5) {$\Rightarrow$};
+
+% --- Constraint nodes (left) ---
+\matrix (c21) at (7.5,2.2) [gridG] {%
+  $\quad$ \\};
+
+\matrix (c22) at (7.5,0.8) [gridG] {%
+  $\quad$ \\};
+
+% --- Variable nodes (right) ---
+\matrix (v21) at (8.8,2.2) [gridB] {%
+  $\quad$ & |[fill=modernyellow]| $z_1^{(t)}$ \\};
+
+\matrix (v22) at (8.8,1.5) [gridB] {%
+  $\quad$ & |[fill=modernyellow]| $z_2^{(t)}$ \\};
+
+\matrix (v23) at (8.8,0.8) [gridB] {%
+  $\quad$ & |[fill=modernyellow]| $z_3^{(t)}$ \\}; % keep your label as-is
+
+        % --- Edges ---
+\draw (c21.east) -- (v21.west);
+\draw (c21.east) -- (v22.west);
+\draw (c22.east) -- (v22.west);
+\draw (c22.east) -- (v23.west);
+
+
+% Group boxes to span with braces
+\node[inner sep=1.5pt, fit=(c21) (c22) (v21-1-1) (v22-1-1) (v23-1-1)] (staticBox2) {};
+\node[inner sep=1.5pt, fit=(v21-1-2) (v22-1-2) (v23-1-2)] (zBox2) {};
+
+% Underbrace for yellow column:  \vz_0
+\draw[decorate, decoration={brace,mirror,amplitude=5pt}]
+  ($(zBox2.south west)$) -- ($(zBox2.south east)$)
+  node[midway, yshift=-8pt] {$\vz_t$};
+
+% Underbrace for green + blue (non-yellow):  static parts
+\draw[decorate, decoration={brace,mirror,amplitude=5pt}]
+  ($(staticBox2.south west)+(0,-6pt)$) -- ($(staticBox2.south east)+(0,-6pt)$)
+  node[midway, yshift=-10pt] {static parts};
+
+
+
+
+\draw[draw=moderngray, dashed, rounded corners=4pt, line width=1pt] (-5.5, -0.25)  rectangle (0.65, 2.6);
+
+\draw[draw=moderngray, dashed, rounded corners=4pt, line width=1pt] (0.82, -0.25)  rectangle (4.25, 2.6);
+
+\draw[draw=moderngray, dashed, rounded corners=4pt, line width=1pt] (4.5, -0.25)  rectangle (9.5, 2.6);
+
+
+\node[anchor=north, text=moderngray, yshift=-6pt]
+  at ($(-5.5,-0.25)!0.5!(0.65,-0.25)$) {A linear program};
+
+\node[anchor=north, text=moderngray, yshift=-6pt]
+  at ($(0.9,-0.25)!0.5!(4.2,-0.25)$) {Graph representation};
+
+\node[anchor=north, text=moderngray, yshift=-6pt]
+  at ($(4.45,-0.25)!0.5!(10.0,-0.25)$) {Implicit GNN iteratively called};
+
+
+\end{tikzpicture}
