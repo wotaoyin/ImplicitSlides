@@ -5,7 +5,7 @@ format:
   revealjs:
     theme: [default, custom.scss]
     slide-number: c/t
-    footer: "Implicit Models | Jan 2026"
+    footer: "Implicit Models | April 2026 | PKU"
     width: 1280
     height: 720
     transition: fade
@@ -37,13 +37,13 @@ bibliography: overleaf/arxiv/refs.bib
 :::
 
 ::: {style="text-align: center; margin-top: 2em;"}
-Jan 2026
+April 2026
 :::
 
 ::: {style="text-align: center; font-size: 0.9em; margin-top: 1em;"}
 Based on: *Implicit Models: Expressive Power Scales with Test-Time Compute*
 
-arXiv:2510.03638 (2025)
+arXiv:2510.03638 (2025), ICLR 2026
 :::
 
 ::: notes
@@ -56,7 +56,7 @@ Acknowledge co-authors.
 
 **Explicit model:** Learn $F(\mathbf{x})$ directly (explicit model)
 
-**Implicit alternative:** Learn operator $G(\cdot,\mathbf(x))$ whose fixed point is the answer
+**Implicit alternative:** Learn operator $G(\cdot,\mathbf{x})$ whose fixed point is the answer
 
 $$\mathbf{y}_* = G(\mathbf{y}_*, \mathbf{x})$$
 
