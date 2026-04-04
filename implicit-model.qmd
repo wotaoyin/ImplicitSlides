@@ -1,5 +1,6 @@
+<!-- title: "Implicit Models: Scaling Expressive Power with Test-Time Compute" -->
 ---
-title: "Implicit Models: Scaling Expressive Power with Test-Time Compute"
+title: "Rich Equilibria: The Hidden Power of Implicit Networks"
 author: Wotao Yin (Alibaba DAMO Academy)
 format:
   revealjs:
