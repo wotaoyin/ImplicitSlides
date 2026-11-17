@@ -82,6 +82,11 @@ quarto preview implicit-model.qmd
 quarto render implicit-model.qmd
 ```
 
+### Decks
+
+- `implicit-model.qmd`: 45-minute talk on the paper (Jan 2026).
+- `implicit-looped.qmd`: 20-minute talk connecting the paper to looped transformers (Nov 2026). Uses the extra bibliography `refs-looped.bib`. Render with `quarto render implicit-looped.qmd`.
+
 ## Key Conventions
 
 - Quarto presentations use `format: revealjs` with BibTeX citations via `bibliography: overleaf/arxiv/refs.bib`
